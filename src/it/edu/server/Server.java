@@ -32,6 +32,8 @@ public class Server {
             loginInputChecks.check(Optional.ofNullable(email), Optional.ofNullable(password));
             if (registeredUsers.containsKey(email) && registeredUsers.get(email).equals(password)) {
                 System.out.println("Login success!");
+            } else {
+                System.out.println("Invalid credentials!");
             }
         } catch (ValidationException e) {
             System.out.println("Register Exception: " + e.getMessage());
