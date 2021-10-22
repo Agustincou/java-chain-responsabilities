@@ -1,5 +1,6 @@
 package it.edu;
 
+import it.edu.exceptions.LoginException;
 import it.edu.server.Server;
 import it.edu.server.validators.EmailValidation;
 import it.edu.server.validators.TooShortPasswordValidation;
@@ -32,7 +33,11 @@ public class Main {
                 case "LOGIN":
                     userEmail = requestUserEmail();
                     userPassword = requestUserPassword();
-                    server.login(userEmail, userPassword);
+                    try {
+                        server.login(userEmail, userPassword);
+                    } catch (LoginException e) {
+                        break;
+                    }
                     return;
                 case "REGISTER":
                     userEmail = requestUserEmail();

@@ -1,5 +1,6 @@
 package it.edu.server;
 
+import it.edu.exceptions.LoginException;
 import it.edu.exceptions.ValidationException;
 import it.edu.server.validators.Validator;
 import it.edu.server.validators.VoidValidation;
@@ -27,16 +28,18 @@ public class Server {
         }
     }
 
-    public void login(String email, String password) {
+    public void login(String email, String password) throws LoginException {
         try {
             loginInputChecks.check(Optional.ofNullable(email), Optional.ofNullable(password));
             if (registeredUsers.containsKey(email) && registeredUsers.get(email).equals(password)) {
                 System.out.println("Login success!");
             } else {
                 System.out.println("Invalid credentials!");
+                throw new LoginException("Invalid credentials!");
             }
         } catch (ValidationException e) {
             System.out.println("Register Exception: " + e.getMessage());
+            throw new LoginException(e.getMessage());
         }
     }
 
